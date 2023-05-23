@@ -1,0 +1,5 @@
+export { default as H1 } from "./Heading1"
+export { default as H2 } from "./Heading2"
+export { default as H3 } from "./Heading3"
+export { default as H4 } from "./Heading4"
+export { default as Paragraph } from "./Paragraph"
