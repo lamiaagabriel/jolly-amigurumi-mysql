@@ -31,7 +31,7 @@ export const fetcher = async (
   url: RequestInfo | URL,
   options: RequestInit | undefined
 ) => {
-  return await fetch(`http://localhost:3000/api${url}`, options).then((res) =>
+  return await fetch(`${process.env.BASE_URL}/api${url}`, options).then((res) =>
     res.json()
   )
 }
