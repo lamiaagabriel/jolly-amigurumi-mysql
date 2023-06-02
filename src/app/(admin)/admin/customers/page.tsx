@@ -13,7 +13,6 @@ import { fetcher } from "@/utils/helper"
 const Customers = async () => {
   const customers: Customer[] = await fetcher("/customers", {
     next: { tags: ["getCustomers"] },
-    cache: "no-cache",
   })
 
   return (

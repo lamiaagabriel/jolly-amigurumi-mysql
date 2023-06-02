@@ -8,12 +8,9 @@ import { fetcher } from "@/utils/helper"
 import ProductsLayout from "@/components/sections/products"
 import { Product } from "@/types/products"
 
-export const revalidate = 10
-
 const Products = async () => {
   const products: Product[] = await fetcher("/products", {
     next: { tags: ["getProducts"] },
-    cache: "no-cache",
   })
 
   if (!products?.length) return <h1>NO PRODUCTS</h1>

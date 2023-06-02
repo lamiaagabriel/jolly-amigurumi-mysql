@@ -51,16 +51,17 @@ const CartLayout = () => {
                 <ul role="list" className="divide-y divide-gray-200">
                   {cart.products.map(({ product, quantity }) => (
                     <li key={product.id} className="flex py-6">
-                      <div className="flex-shrink-0">
-                        <Image
-                          src={product.images[0]}
-                          alt={product.images[0]}
-                          width={10000}
-                          height={10000}
-                          className="w-24 h-24 rounded-md object-center object-cover sm:w-32 sm:h-32"
-                        />
-                      </div>
-
+                      {product.images && (
+                        <div className="flex-shrink-0">
+                          <Image
+                            src={product.images[0]}
+                            alt={product.images[0]}
+                            width={10000}
+                            height={10000}
+                            className="w-24 h-24 rounded-md object-center object-cover sm:w-32 sm:h-32"
+                          />
+                        </div>
+                      )}
                       <div className="ml-4 flex-1 flex flex-col sm:ml-6">
                         <div>
                           <div className="flex justify-between">

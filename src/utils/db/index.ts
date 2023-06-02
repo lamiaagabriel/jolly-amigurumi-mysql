@@ -1,18 +1,12 @@
 import mysql from "mysql2/promise"
 
 // Database Connection
-export const pool = mysql.createPool(
-  'mysql://ckpcjhqw3z6i0630n9o4:pscale_pw_Mj3WP7OBA1fPNbNIAGx8aPXjg0b5gjYIrZzPYT6NHZ0@aws.connect.psdb.cloud/jolly-amigurumi-mysql?ssl={"rejectUnauthorized":true}'
-)
-
-// query<T extends RowDataPacket[][] | RowDataPacket[] | OkPacket | OkPacket[] | ResultSetHeader>(
-//     sql: string
-//   ): Promise<[T, FieldPacket[]]>;
+export const pool = mysql.createPool(process.env.DATABASE_URL!)
 
 const query = async (query: string, values?: any) => {
   try {
     const db = await pool.getConnection()
-    const [results] = await db.query(query, values)
+    const [results] = await db.query(query, values || [])
 
     db.release()
     return results

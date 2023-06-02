@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 
-export const revalidate = 10
 export async function generateMetadata({
   params,
 }: {
@@ -27,7 +26,6 @@ import { fetcher } from "@/utils/helper"
 const Product = async ({ params }: { params: { slug: string } }) => {
   const product: Product | null = await fetcher(`/products/${params.slug}`, {
     next: { tags: ["getProducts"] },
-    cache: "no-cache",
   })
 
   if (!product) return <h1>PRODUCT NOT FOUND</h1>

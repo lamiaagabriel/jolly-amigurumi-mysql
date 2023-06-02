@@ -17,7 +17,6 @@ import { fetcher } from "@/utils/helper"
 const Products = async () => {
   const products: Product[] = await fetcher("/products", {
     next: { tags: ["getProducts"] },
-    cache: "no-cache",
   })
 
   return (

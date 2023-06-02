@@ -6,8 +6,6 @@ import { Tab } from "@headlessui/react"
 import { cn } from "@/ui/utils"
 
 const ProductImageGallery = ({ images }: { images: string[] }) => {
-  console.log("images", images)
-
   return (
     <Tab.Group
       as="div"

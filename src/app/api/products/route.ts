@@ -4,33 +4,45 @@ import db from "@/utils/db"
 import { Product, productSchema } from "@/types/products"
 
 export async function GET(req: Request) {
-  const rows: any = await db.query(`
-      SELECT p.id, p.slug, p.title, p.description, c.id AS category_id, c.title AS category_title, 
-      GROUP_CONCAT(DISTINCT pi.src) AS images, p.price, p.count_in_stock, p.discount, p.created_at, p.updated_at
-      FROM products p
-      JOIN categories c ON p.category_id = c.id
-      LEFT JOIN product_images pi ON p.id = pi.product_id
-      GROUP BY p.id
-      ORDER BY p.created_at DESC
-  ;`)
+  try {
+    const rows = (await db.query(`
+      SELECT
+        JSON_OBJECT(
+          'id', products.id,
+          'slug', products.slug,
+          'title', products.title,
+          'description', products.description,
+          'price', products.price,
+          'count_in_stock', products.count_in_stock,
+          'discount', products.discount,
+          'created_at', products.created_at,
+          'updated_at', products.updated_at,
+          'category', JSON_OBJECT(
+            'id', categories.id,
+            'title', categories.title
+          ),
+          'images', JSON_ARRAYAGG(
+            CONCAT(product_images.src)
+          )
+        )
+      FROM
+        products
+        JOIN categories ON products.category_id = categories.id
+        JOIN product_images ON products.id = product_images.product_id
+      GROUP BY products.id;
+    `)) as Product[]
 
-  if (rows && Array.isArray(rows) && rows.length) {
-    const products: Product[] = rows.map(
-      ({ category_id, category_title, images, price, ...row }) => ({
-        ...row,
-        price: Number.parseFloat(price.toString()),
-        category: {
-          id: category_id || "",
-          title: category_title || "",
-        },
-        images: images?.toString().split(",") || [],
-      })
-    )
+    if (rows && Array.isArray(rows) && rows.length) {
+      const products = rows?.map((row) => Object.values(row).pop())
 
-    if (products) {
-      const validProducts = productSchema.safeParse(products[0])
-      if (validProducts.success) return NextResponse.json(products)
+      if (products) {
+        const validProducts = productSchema.safeParse(products[0])
+        if (validProducts.success) return NextResponse.json(products)
+      }
     }
+  } catch (error: any) {
+    console.log(error.message)
   }
+
   return NextResponse.json([])
 }

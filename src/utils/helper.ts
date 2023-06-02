@@ -31,7 +31,7 @@ export const fetcher = async (
   url: RequestInfo | URL,
   options: RequestInit | undefined
 ) => {
-  return await fetch(`${process.env.BASE_URL}/api${url}`, options).then((res) =>
-    res.json()
+  return await fetch(`${process.env.NEXTAUTH_URL}/api${url}`, options).then(
+    (res) => res.json()
   )
 }

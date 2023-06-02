@@ -68,15 +68,17 @@ const ProductsLayout = ({ products }: { products: ProductType[] }) => {
                     href={{ pathname: `/products/${product.slug}` }}
                     className="pb-6 relative"
                   >
-                    <div className="relative w-full h-72 rounded-lg overflow-hidden">
-                      <Image
-                        src={product.images[0]}
-                        alt={product.title}
-                        width={10000}
-                        height={10000}
-                        className="w-full h-full object-center object-cover"
-                      />
-                    </div>
+                    {product.images && (
+                      <div className="relative w-full h-72 rounded-lg overflow-hidden">
+                        <Image
+                          src={product.images[0]}
+                          alt={product.title}
+                          width={10000}
+                          height={10000}
+                          className="w-full h-full object-center object-cover"
+                        />
+                      </div>
+                    )}
                     <div className="relative mt-4">
                       <h3 className="text-sm font-medium text-gray-900">
                         {product.title}

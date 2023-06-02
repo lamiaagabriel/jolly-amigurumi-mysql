@@ -16,11 +16,12 @@ import {
   DropdownMenuTrigger,
 } from "@/ui/dropdown-menu"
 import { buttonVariants } from "@/ui/button"
-import { ShoppingBag, Boxes } from "lucide-react"
+import { Boxes } from "lucide-react"
 
 import { CartBadge, SignOutButton } from "@/components/client-actions"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/utils/next-auth"
+import { H1 } from "@/ui/typography"
 
 const navLinks: { to: string; title: string }[] = [
   { to: "/", title: "Home" },
@@ -32,7 +33,7 @@ const Header = async () => {
   return (
     <header className="border-b bg-card">
       <div className="container py-4 flex justify-between items-center gap-8">
-        <h1>Jolly</h1>
+        <H1>Jolly</H1>
         <div className="flex justify-between items-center gap-6">
           <nav className="flex justify-start items-center gap-4">
             {navLinks.map((navLink, i) => (
