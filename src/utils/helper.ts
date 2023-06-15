@@ -31,8 +31,6 @@ export const fetcher = async (
   url: RequestInfo | URL,
   options: RequestInit | undefined
 ) => {
-  console.log("VERCEL_URL")
-  console.log(`https://${process.env.VERCEL_URL}/api${url}`)
   return await fetch(
     `https://${process.env.VERCEL_URL}/api${url}`,
     options

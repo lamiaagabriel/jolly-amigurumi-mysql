@@ -3,6 +3,7 @@ import { Inter } from "next/font/google"
 
 import { cn } from "@/ui/utils"
 import Providers from "@/context/Providers"
+import Footer from "@/components/Footer"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/utils/next-auth"
 
@@ -22,7 +23,10 @@ export default async function RootLayout({
   return (
     <html lang="en" className="text-sm md:text-base">
       <body className={cn("min-h-screen flex flex-col", inter.className)}>
-        <Providers session={session}>{children}</Providers>
+        <Providers session={session}>
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   )
